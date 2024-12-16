@@ -38,7 +38,7 @@ int main(int argc, char** argv) {
         return -1;
     }
 
-    // Esse bloco só é executado pelo processo mestre que neste caso é o de rank zero
+    // Esse bloco só é executado pelo processo de rank zero
     // Ele vai inicializar a matriz de adjacência com os numeros aleatórios
     if (rank == 0) {
         initialize_graph(graph); // Inicializa o grafo
@@ -108,9 +108,9 @@ int main(int argc, char** argv) {
     // O tipo de dado a ser recebido
     // O rank do processo que vai reunir os dados que nesse caso é o rank 0
     // Comunicaddor com todos os processos
-    MPI_Gather(distances, N, MPI_INT, final_distances, N, MPI_INT, 0, MPI_COMM_WORLD); // Vai pegar todos os resultados dos processos e enviar para o processo mestre
+    MPI_Gather(distances, N, MPI_INT, final_distances, N, MPI_INT, 0, MPI_COMM_WORLD); // Vai pegar todos os resultados dos processos e enviar para o processo de rank 0
 
-    // Se o processo executando for o mestre ele vai imprimir a matriz com as distâncias finais
+    // Se o processo executando for o de rank zero ele vai imprimir a matriz com as distâncias finais
     if (rank == 0) {
         printf("\nVetores de distância calculados:\n");
         print_graph(final_distances); // Chama a função de imprimir
